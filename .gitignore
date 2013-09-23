@@ -1,0 +1,114 @@
+
+### Java ( https://github.com/github/gitignore ) 
+
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+
+### Maven ( https://github.com/github/gitignore ) 
+
+target/
+
+
+### Intellij ( https://github.com/github/gitignore ) 
+
+*.iml
+*.ipr
+*.iws
+.idea/
+
+
+### Eclipse ( https://github.com/github/gitignore ) 
+
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+
+### Emacs ( https://github.com/github/gitignore ) 
+
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+.org-id-locations
+*_archive
+
+
+### vim ( https://github.com/github/gitignore ) 
+
+*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+
+### OSX ( https://github.com/github/gitignore ) 
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+
+### Linux ( https://github.com/github/gitignore ) 
+
+.*
+!.gitignore
+*~
+
+
+### Windows ( https://github.com/github/gitignore ) 
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
