@@ -26,22 +26,24 @@ public class IT {
 
     @Test
     public void getBookmarks() {
+        int requestedCount = 13;
+        int requestedPage = 2;
+
         try {
-            BookmarkList results = service.listBookmarks();
+            BookmarkList results = service.listBookmarks(requestedCount,requestedPage);
+
             for (Bookmark b : results.bmarks) {
                 System.out.println(b.url);
-
                 System.out.println(StringUtils.join(b.tags.iterator(), '|'));
             }
             assertThat(results.bmarks, is(not(empty())));
             assertThat(results.bmarks.size(), is(equalTo(results.count)));
+            assertThat(results.count, is(equalTo(requestedCount)));
         } catch (RetrofitError e) {
             e.printStackTrace();
             System.out.println(e.getUrl());
             System.out.println(e.getResponse().getBody().toString());
             System.out.println(e.isNetworkError());
-
-
             fail();
         }
     }
