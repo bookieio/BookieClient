@@ -30,7 +30,7 @@ public class IT {
         int requestedPage = 2;
 
         try {
-            BookmarkList results = service.listBookmarks(requestedCount,requestedPage);
+            BookmarkList results = service.listBookmarks(requestedCount, requestedPage);
 
             for (Bookmark b : results.bmarks) {
                 System.out.println(b.url);
