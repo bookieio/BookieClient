@@ -8,7 +8,7 @@ public class Bookmark {
     String url;
     String hash_id;
     String username;
-    String stroed;
+    String stored;
     int clicks;
     List<Tag> tags;
 }
