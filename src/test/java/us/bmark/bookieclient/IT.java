@@ -66,7 +66,7 @@ public class IT {
 
         try {
             BookmarkList results =
-                    service.listBookmarks(requestedCount, requestedPage);
+                    service.everyonesRecent(requestedCount, requestedPage);
 
             assertThat(results.bmarks, is(not(empty())));
             assertThat(results.bmarks.size(), is(equalTo(results.count)));
@@ -89,7 +89,7 @@ public class IT {
 
         try {
             BookmarkList results =
-                    service.listUserBookmarks(username, apikey, requestedCount, requestedPage);
+                    service.recent(username, apikey, requestedCount, requestedPage);
 
             assertThat(results.bmarks, is(not(empty())));
             assertThat(results.bmarks.size(), is(equalTo(results.count)));
@@ -112,17 +112,17 @@ public class IT {
         bmark.description="THIS BOOKMARK PLACED BY Java Client Integration Test " + TIME;
         bmark.inserted_by="JAVA-CLIENT-INT-TEST";
 
-        int initialCount = service.listUserBookmarkTagged(username,apikey,"testing-tag-1", 99, 0).count;
+        int initialCount = service.tagged(username, apikey, "testing-tag-1", 99, 0).count;
 
         NewBookmarkResponse response = service.bookmark(username,apikey,bmark);
         String hash = response.bmark.hash_id;
         assertThat(hash,is(notNullValue()));
 
-        int postCount = service.listUserBookmarkTagged(username,apikey,"testing-tag-1", 99, 0).count;
+        int postCount = service.tagged(username, apikey, "testing-tag-1", 99, 0).count;
         assertThat(postCount,is(initialCount+1));
         String deleteRespMsg = service.delete(username,apikey,hash).message;
         assertThat(deleteRespMsg,is(equalTo("done")));
-        int finalCount = service.listUserBookmarkTagged(username,apikey,"testing-tag-1", 99, 0).count;
+        int finalCount = service.tagged(username, apikey, "testing-tag-1", 99, 0).count;
         assertThat(finalCount,is(equalTo(initialCount)));
     }
 

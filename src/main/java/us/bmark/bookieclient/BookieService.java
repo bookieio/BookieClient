@@ -5,13 +5,13 @@ import retrofit.http.*;
 public interface BookieService {
 
     @GET("/api/v1/bmarks")
-    BookmarkList listBookmarks(
+    BookmarkList everyonesRecent(
             @Query("count") int count,
             @Query("page") int page
     );
 
     @GET("/api/v1/{user}/bmarks")
-    BookmarkList listUserBookmarks(
+    BookmarkList recent(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Query("count") int count,
@@ -19,7 +19,7 @@ public interface BookieService {
     );
 
     @GET("/api/v1/{user}/bmarks/{tag}")
-    BookmarkList listUserBookmarkTagged(
+    BookmarkList tagged(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Path("tag") String tag,
