@@ -7,6 +7,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 
 import java.io.InputStream;
+import java.util.Date;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -104,18 +105,25 @@ public class IT {
 
     @Test
     public void makeBookmarkThenDeleteIt() {
+        final long TIME = new Date().getTime();
         NewBookmark bmark = new NewBookmark();
-        bmark.url="http://foo.example.com/testing/java-client-it-test";
-        bmark.tags="testing-tag-1 testing-tag-2 testing-java-client-IT-test";
-        bmark.description="THIS BOOKMARK PLACED BY Java Client Integration Test";
+        bmark.url="http://foo.example.com/testing/java-client-it-test/" +TIME;
+        bmark.tags="testing-tag-1 testing-tag-2 testing-java-client-IT-test" + TIME;
+        bmark.description="THIS BOOKMARK PLACED BY Java Client Integration Test " + TIME;
         bmark.inserted_by="JAVA-CLIENT-INT-TEST";
 
-
+        int initialCount = service.listUserBookmarkTagged(username,apikey,"testing-tag-1", 99, 0).count;
 
         NewBookmarkResponse response = service.bookmark(username,apikey,bmark);
         String hash = response.bmark.hash_id;
         assertThat(hash,is(notNullValue()));
-        
+
+        int postCount = service.listUserBookmarkTagged(username,apikey,"testing-tag-1", 99, 0).count;
+        assertThat(postCount,is(initialCount+1));
+        String deleteRespMsg = service.delete(username,apikey,hash).message;
+        assertThat(deleteRespMsg,is(equalTo("done")));
+        int finalCount = service.listUserBookmarkTagged(username,apikey,"testing-tag-1", 99, 0).count;
+        assertThat(finalCount,is(equalTo(initialCount)));
     }
 
 }

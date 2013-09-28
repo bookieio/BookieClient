@@ -2,8 +2,6 @@ package us.bmark.bookieclient;
 
 import retrofit.http.*;
 
-import java.util.EmptyStackException;
-
 public interface BookieService {
 
     @GET("/api/v1/bmarks")
@@ -36,5 +34,11 @@ public interface BookieService {
             @Body NewBookmark bmark
     );
 
+    @DELETE("/api/v1/{user}/bmark/{bmid}")
+    DeleteBookmarkResponse delete(
+            @Path("user") String user,
+            @Query("api_key") String apikey,
+            @Path("bmid") String bmid
+    );
 
 }
