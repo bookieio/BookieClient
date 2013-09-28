@@ -3,6 +3,7 @@ package us.bmark.bookieclient;
 import org.hamcrest.BaseMatcher;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import retrofit.RetrofitError;
 
 import java.io.InputStream;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import static org.hamcrest.CoreMatchers.*;
@@ -20,7 +22,9 @@ import static org.junit.Assert.fail;
 
 public class IT {
 
-    RestAdapter adapter;
+    static final RestAdapter adapter =new RestAdapter.Builder()
+            .setServer("https://bmark.us").build();
+
     BookieService service;
     static final String username;
     static final String apikey;
@@ -55,9 +59,6 @@ public class IT {
 
     @Before
     public void setupService() {
-        adapter = new RestAdapter.Builder()
-                .setServer("https://bmark.us")
-                .build();
         adapter.setLogLevel(RestAdapter.LogLevel.FULL);
         service = adapter.create(BookieService.class);
     }
@@ -136,6 +137,16 @@ public class IT {
         assertThat(deleteRespMsg,is(equalTo("done")));
         int finalCount = service.tagged(username, apikey, "testing-tag-1", 99, 0).count;
         assertThat(finalCount,is(equalTo(initialCount)));
+    }
+
+    @AfterClass
+    public static void attemptCleanupOfCreatedBookmarks() {
+        BookieService service = adapter.create(BookieService.class);
+        List<Bookmark> bmarks = service.tagged(username,apikey,"testing-tag-1",199,0).bmarks;
+        for(Bookmark bmark : bmarks) {
+            service.delete(username,apikey,bmark.hash_id);
+        }
+
     }
 
     private Matcher<Bookmark> withHashId(final String hash) {
