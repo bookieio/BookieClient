@@ -103,7 +103,7 @@ public class IT {
     }
 
     @Test
-    public void makeBookmarkThenReadIt() {
+    public void makeBookmarkThenDeleteIt() {
         NewBookmark bmark = new NewBookmark();
         bmark.url="http://foo.example.com/testing/java-client-it-test";
         bmark.tags="testing-tag-1 testing-tag-2 testing-java-client-IT-test";
@@ -111,7 +111,11 @@ public class IT {
         bmark.inserted_by="JAVA-CLIENT-INT-TEST";
 
 
-        service.bookmark(username,apikey,bmark);
+
+        NewBookmarkResponse response = service.bookmark(username,apikey,bmark);
+        String hash = response.bmark.hash_id;
+        assertThat(hash,is(notNullValue()));
+        
     }
 
 }

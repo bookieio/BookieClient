@@ -2,6 +2,8 @@ package us.bmark.bookieclient;
 
 import retrofit.http.*;
 
+import java.util.EmptyStackException;
+
 public interface BookieService {
 
     @GET("/api/v1/bmarks")
@@ -18,11 +20,21 @@ public interface BookieService {
             @Query("page") int page
     );
 
+    @GET("/api/v1/{user}/bmarks/{tag}")
+    BookmarkList listUserBookmarkTagged(
+            @Path("user") String user,
+            @Query("api_key") String apikey,
+            @Path("tag") String tag,
+            @Query("count") int count,
+            @Query("page") int page
+    );
+
     @POST("/api/v1/{user}/bmark")
-    EmptyJsonResponse bookmark(
+    NewBookmarkResponse bookmark(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Body NewBookmark bmark
     );
+
 
 }
