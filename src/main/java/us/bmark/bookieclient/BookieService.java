@@ -1,7 +1,6 @@
 package us.bmark.bookieclient;
 
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit.http.*;
 
 public interface BookieService {
 
@@ -10,4 +9,13 @@ public interface BookieService {
             @Query("count") int count,
             @Query("page") int page
     );
+
+    @GET("/api/v1/{user}/bmarks")
+    BookmarkList listUserBookmarks(
+            @Path("user") String user,
+            @Query("api_key") String apikey,
+            @Query("count") int count,
+            @Query("page") int page
+    );
+
 }

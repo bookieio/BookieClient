@@ -1,3 +1,8 @@
+### project specific ignores
+
+# ignore local property files such as local-it.properties
+local*.properties
+
 
 ### Java ( https://github.com/github/gitignore ) 
 
