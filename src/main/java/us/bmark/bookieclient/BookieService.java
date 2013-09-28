@@ -18,4 +18,11 @@ public interface BookieService {
             @Query("page") int page
     );
 
+    @POST("/api/v1/{user}/bmark")
+    EmptyJsonResponse bookmark(
+            @Path("user") String user,
+            @Query("api_key") String apikey,
+            @Body NewBookmark bmark
+    );
+
 }

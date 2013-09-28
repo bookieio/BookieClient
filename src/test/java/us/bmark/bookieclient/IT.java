@@ -102,4 +102,16 @@ public class IT {
         }
     }
 
+    @Test
+    public void makeBookmarkThenReadIt() {
+        NewBookmark bmark = new NewBookmark();
+        bmark.url="http://foo.example.com/testing/java-client-it-test";
+        bmark.tags="testing-tag-1 testing-tag-2 testing-java-client-IT-test";
+        bmark.description="THIS BOOKMARK PLACED BY Java Client Integration Test";
+        bmark.inserted_by="JAVA-CLIENT-INT-TEST";
+
+
+        service.bookmark(username,apikey,bmark);
+    }
+
 }
