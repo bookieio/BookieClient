@@ -1,5 +1,8 @@
 package us.bmark.bookieclient;
 
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -104,7 +107,7 @@ public class IT {
     }
 
     @Test
-    public void makeBookmarkThenDeleteIt() {
+    public void makeBookmarkThenDeleteIt() throws InterruptedException {
         final long TIME = new Date().getTime();
         NewBookmark bmark = new NewBookmark();
         bmark.url="http://foo.example.com/testing/java-client-it-test/" +TIME;
@@ -118,12 +121,53 @@ public class IT {
         String hash = response.bmark.hash_id;
         assertThat(hash,is(notNullValue()));
 
+        // allow to settle in
+        Thread.sleep(25000);
+
         int postCount = service.tagged(username, apikey, "testing-tag-1", 99, 0).count;
         assertThat(postCount,is(initialCount+1));
+
+
+        SearchResult searchResults = service.search(username,apikey,Long.toString(TIME),4,0);
+
+        assertThat(searchResults.search_results,hasItem(withHashId(hash)));
+
         String deleteRespMsg = service.delete(username,apikey,hash).message;
         assertThat(deleteRespMsg,is(equalTo("done")));
         int finalCount = service.tagged(username, apikey, "testing-tag-1", 99, 0).count;
         assertThat(finalCount,is(equalTo(initialCount)));
+    }
+
+    private Matcher<Bookmark> withHashId(final String hash) {
+
+        return new BaseMatcher<Bookmark>() {
+
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("a bookmark with hash_id " + hash);
+            }
+
+            @Override
+            public boolean matches(Object item) {
+                if(item instanceof Bookmark) {
+                    return hash.equals(((Bookmark) item).hash_id);
+                } else {
+                    return false;
+                }
+
+            }
+
+            @Override
+            public void describeMismatch(Object item, Description mismatchDescription) {
+                if(! (item instanceof Bookmark)) {
+                    mismatchDescription.appendText("The item wasn't even a bookmark");
+                } else {
+                    Bookmark bm = (Bookmark) item;
+                    mismatchDescription.appendText("Item had hash " + String.valueOf(bm.hash_id) + " but expected " + hash);
+                }
+            }
+
+        };
     }
 
 }

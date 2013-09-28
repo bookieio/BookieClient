@@ -27,6 +27,15 @@ public interface BookieService {
             @Query("page") int page
     );
 
+    @GET("/api/v1/{user}/bmarks/search/{terms}")
+    SearchResult search(
+            @Path("user") String user,
+            @Query("api_key") String apikey,
+            @EncodedPath("terms") String terms,
+            @Query("count") int count,
+            @Query("page") int page
+    );
+
     @POST("/api/v1/{user}/bmark")
     NewBookmarkResponse bookmark(
             @Path("user") String user,
