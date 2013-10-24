@@ -1,8 +1,8 @@
 package us.bmark.bookieclient;
 
 public class NewBookmark {
-    String description;
-    String url;
-    String inserted_by;
-    String tags;
+    public String description;
+    public String url;
+    public String inserted_by;
+    public String tags;
 }

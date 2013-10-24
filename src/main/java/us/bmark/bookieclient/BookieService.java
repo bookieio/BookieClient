@@ -1,17 +1,24 @@
 package us.bmark.bookieclient;
 
-import retrofit.http.*;
+import retrofit.Callback;
+import retrofit.http.Body;
+import retrofit.http.DELETE;
+import retrofit.http.EncodedPath;
+import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface BookieService {
 
     @GET("/api/v1/bmarks")
-    BookmarkList everyonesRecent(
+    public BookmarkList everyonesRecent(
             @Query("count") int count,
             @Query("page") int page
     );
 
     @GET("/api/v1/{user}/bmarks")
-    BookmarkList recent(
+    public BookmarkList recent(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Query("count") int count,
@@ -19,7 +26,7 @@ public interface BookieService {
     );
 
     @GET("/api/v1/{user}/bmarks/{tag}")
-    BookmarkList tagged(
+    public BookmarkList tagged(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Path("tag") String tag,
@@ -28,7 +35,7 @@ public interface BookieService {
     );
 
     @GET("/api/v1/{user}/bmarks/search/{terms}")
-    SearchResult search(
+    public SearchResult search(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @EncodedPath("terms") String terms,
@@ -37,14 +44,14 @@ public interface BookieService {
     );
 
     @POST("/api/v1/{user}/bmark")
-    NewBookmarkResponse bookmark(
+    public NewBookmarkResponse bookmark(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Body NewBookmark bmark
     );
 
     @DELETE("/api/v1/{user}/bmark/{bmid}")
-    DeleteBookmarkResponse delete(
+    public DeleteBookmarkResponse delete(
             @Path("user") String user,
             @Query("api_key") String apikey,
             @Path("bmid") String bmid

@@ -1,6 +1,6 @@
 package us.bmark.bookieclient;
 
 public class NewBookmarkResponse {
-    Bookmark bmark;
-    String location;
+    public Bookmark bmark;
+    public String location;
 }
