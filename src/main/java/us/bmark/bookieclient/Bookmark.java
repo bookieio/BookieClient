@@ -10,5 +10,6 @@ public class Bookmark {
     public String username;
     public String stored;
     public int clicks;
+    public int total_clicks;
     public List<Tag> tags;
 }
