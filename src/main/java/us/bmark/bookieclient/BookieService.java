@@ -9,11 +9,12 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.Query;
 
+@SuppressWarnings("ALL")
 public interface BookieService {
 
     @GET("/api/v1/bmarks")
     public BookmarkList everyonesRecent(
-            @Query("count") int count,
+            @Query("count")  int count,
             @Query("page") int page
     );
 
