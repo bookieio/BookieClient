@@ -29,9 +29,9 @@ import static org.junit.Assert.fail;
 @SuppressWarnings({"WeakerAccess", "StringConcatenation", "HardCodedStringLiteral"})
 public class IT {
 
-    public static final String SERVER_URL = ".";
+    public static final String SERVER_URL = "https://bmark.us";
     static final RestAdapter adapter =new RestAdapter.Builder()
-            .setServer("https://bmark" + SERVER_URL + "us").build();
+            .setServer(SERVER_URL).build();
     public static final String TESTING_TAG_1 = "testing-tag-1";
 
     BookieService service;
@@ -74,7 +74,6 @@ public class IT {
 
     @Test
     public void getBookmarks() {
-
         try {
             int requestedCount = 13;
             int requestedPage = 2;
@@ -95,8 +94,6 @@ public class IT {
 
     @Test
     public void getUserBookmarks() {
-
-
         try {
             int requestedCount = 5;
             int requestedPage = 1;
