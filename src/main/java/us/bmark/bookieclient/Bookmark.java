@@ -12,4 +12,5 @@ public class Bookmark {
     public int clicks;
     public int total_clicks;
     public List<Tag> tags;
+    public String tag_str;
 }
